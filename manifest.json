@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Tab Filter",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Search open tabs and switch with the keyboard.",
   "author": "Sander van Dragt <sander@vandragt.com>",
   "homepage_url": "https://github.com/svandragt/tab-filter",
