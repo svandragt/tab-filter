@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0060df"/>
+  <!-- Three tabs being narrowed down by a funnel to one -->
+  <rect x="12" y="12" width="40" height="7" rx="3.5" fill="#fff" opacity=".55"/>
+  <path d="M12 25h40L37 40v10l-10 5V40z" fill="#fff"/>
+</svg>
