@@ -21,7 +21,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "tab-switcher@local",
+      "id": "tab-filter@vandragt.com",
       "data_collection_permissions": {
         "required": [
           "none"
