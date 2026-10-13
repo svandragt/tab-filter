@@ -25,7 +25,7 @@ To change the shortcut, open `about:addons`, click the gear icon and choose **Ma
 
 Source code and issues: https://github.com/svandragt/tab-filter
 
-## Version notes (0.1.2)
+## Version notes (0.1.3)
 
 First public release.
 
