@@ -105,6 +105,9 @@ function select(i) {
 
 async function closeTab(tab) {
   await browser.tabs.remove(tab.id);
+  // Closing the current tab makes Firefox switch tabs, which takes keyboard focus
+  // from the popup for good, so close the popup rather than leave it unusable.
+  if (tab.active && tab.windowId === currentWindowId) return window.close();
   tabs = tabs.filter(t => t.id !== tab.id);
   q.placeholder = `Search ${tabs.length} open tabs`;
   render();
