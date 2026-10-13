@@ -33,3 +33,7 @@ Tab Filter reads your tab titles and addresses only to show the list. It stores 
 | `make clean` | Deletes the built zips |
 
 To load the extension in your own Firefox profile instead, open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on** and select `manifest.json`.
+
+## Licence
+
+Tab Filter is released under the MIT licence. See [LICENSE](LICENSE).
