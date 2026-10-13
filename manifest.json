@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Tab Filter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search open tabs and switch with the keyboard.",
   "permissions": ["tabs"],
   "action": { "default_title": "Tab Filter", "default_popup": "popup.html" },
