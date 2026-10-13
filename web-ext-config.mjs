@@ -1,1 +1,1 @@
-export default { ignoreFiles: ["test.js", "README.md", "web-ext-config.mjs"] };
+export default { ignoreFiles: ["test.js", "README.md", "web-ext-config.mjs", "Makefile"] };

@@ -8,6 +8,8 @@ Tab Filter is a Firefox extension that finds an open tab by typing part of its t
 2. Type part of the tab's title or address. The list filters as you type.
 3. Press `Enter` to switch to the first result, or use the arrow keys to pick another one.
 
+The selected result also shows the tab's full address, to tell tabs with similar titles apart.
+
 To close the selected tab without leaving the list, press `Delete` with the cursor at the end of your search.
 
 The search is fuzzy: `wkmd` finds "Wikimedia". Letters that start a word count most, so `gs` finds "GitHub Status". Fuzzy matches use the tab title; the address matches only when it contains the exact text. The matched letters are underlined.
@@ -22,7 +24,12 @@ Tab Filter reads your tab titles and addresses only to show the list. It stores 
 
 ## Develop
 
-1. Open `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on** and select `manifest.json`.
+| Command | What it does |
+|---|---|
+| `make run` | Opens Firefox with the extension loaded, and reloads it when you change a file |
+| `make test` | Tests the search scoring |
+| `make lint` | Checks the extension against Mozilla's rules |
+| `make build` | Runs the test and lint, then builds the zip for addons.mozilla.org in `web-ext-artifacts/` |
+| `make clean` | Deletes the built zips |
 
-To test the search scoring, run `node test.js`. To check the extension against Mozilla's rules, run `npx web-ext lint`. To build a zip for addons.mozilla.org, run `npx web-ext build`.
+To load the extension in your own Firefox profile instead, open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on** and select `manifest.json`.

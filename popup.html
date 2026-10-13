@@ -5,10 +5,12 @@
   h1 { margin: 0; padding: 8px; font-size: 13px; font-weight: 600; text-align: center; border-bottom: 1px solid #ccc; }
   input { box-sizing: border-box; width: 100%; padding: 8px; border: 0; outline: none; font: inherit; }
   ul { list-style: none; margin: 0; padding: 0; max-height: 480px; overflow-y: auto; }
-  li { display: flex; gap: 6px; align-items: center; padding: 5px 8px; cursor: pointer; }
+  li { flex-wrap: wrap; display: flex; gap: 6px; align-items: center; padding: 5px 8px; cursor: pointer; }
   li img { width: 16px; height: 16px; flex: none; }
-  li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  li span { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   li small { color: #888; margin-left: auto; flex: none; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  li .url { display: none; flex-basis: 100%; padding-left: 22px; font-size: 11px; word-break: break-all; }
+  li.sel .url { display: block; }
   li.sel { background: #0060df; color: #fff; }
   li b { font-weight: 700; text-decoration: underline; }
   li.sel small { color: #ddd; }

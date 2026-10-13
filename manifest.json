@@ -1,15 +1,32 @@
 {
   "manifest_version": 3,
   "name": "Tab Filter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search open tabs and switch with the keyboard.",
-  "permissions": ["tabs"],
-  "action": { "default_title": "Tab Filter", "default_popup": "popup.html" },
-  "commands": {
-    "_execute_action": { "suggested_key": { "default": "Ctrl+Insert" } }
+  "author": "Sander van Dragt <sander@vandragt.com>",
+  "homepage_url": "https://github.com/svandragt/tab-filter",
+  "permissions": [
+    "tabs"
+  ],
+  "action": {
+    "default_title": "Tab Filter",
+    "default_popup": "popup.html"
   },
-  "browser_specific_settings": { "gecko": {
-    "id": "tab-switcher@local",
-    "data_collection_permissions": { "required": ["none"] }
-  } }
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Insert"
+      }
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tab-switcher@local",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
 }

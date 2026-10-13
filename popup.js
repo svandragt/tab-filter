@@ -1,6 +1,9 @@
 const q = document.getElementById("q");
 const list = document.getElementById("list");
 let tabs = [], shown = [], sel = 0, currentWindowId;
+// Show any startup error where you can see it, instead of only in the console.
+addEventListener("error", e => { q.placeholder = `Tab Filter error: ${e.message}`; });
+addEventListener("unhandledrejection", e => { q.placeholder = `Tab Filter error: ${e.reason?.message ?? e.reason}`; });
 
 // A word matches a tab with a score (lower is better) and the title positions to
 // highlight. Exact text in the title beats exact text in the URL, which beats a
@@ -74,18 +77,29 @@ function render() {
   const matches = tabs.map(t => match(t, words)).filter(Boolean).sort((a, b) => a.score - b.score);
   shown = matches.map(m => m.tab);
   sel = Math.min(sel, Math.max(shown.length - 1, 0));
-  list.replaceChildren(...matches.map(({ tab: t, positions }, i) => {
+  list.replaceChildren(...matches.map(({ tab: t, positions }) => {
     const li = document.createElement("li");
-    if (i === sel) li.className = "sel";
     const img = document.createElement("img");
     img.src = t.favIconUrl || "";
     const host = document.createElement("small");
     const hostname = URL.canParse(t.url) ? new URL(t.url).hostname : "";
     host.textContent = t.windowId === currentWindowId ? hostname : `other window · ${hostname}`;
-    li.append(img, highlighted(t.title, positions), host);
+    // The full address shows only on the selected row, to tell similar titles apart.
+    const url = document.createElement("div");
+    url.className = "url";
+    url.textContent = t.url;
+    li.append(img, highlighted(t.title, positions), host, url);
     li.onclick = () => go(t);
     return li;
   }));
+  select(sel);
+}
+
+// A live preview that switches tabs is not possible: Firefox moves keyboard focus
+// to the page on a tab switch, and the popup can't take it back.
+function select(i) {
+  sel = i;
+  [...list.children].forEach((li, j) => li.classList.toggle("sel", j === sel));
   list.children[sel]?.scrollIntoView({ block: "nearest" });
 }
 
@@ -104,14 +118,11 @@ async function go(tab) {
 
 q.addEventListener("input", () => { sel = 0; render(); });
 q.addEventListener("keydown", e => {
-  if (e.key === "ArrowDown") sel = Math.min(sel + 1, shown.length - 1);
-  else if (e.key === "ArrowUp") sel = Math.max(sel - 1, 0);
+  if (e.key === "ArrowDown") return e.preventDefault(), select(Math.min(sel + 1, shown.length - 1));
+  else if (e.key === "ArrowUp") return e.preventDefault(), select(Math.max(sel - 1, 0));
   else if (e.key === "Enter" && shown[sel]) return go(shown[sel]);
   // Delete still edits the search unless the cursor is at the end of it.
   else if (e.key === "Delete" && shown[sel] && q.selectionStart === q.value.length) { e.preventDefault(); return closeTab(shown[sel]); }
-  else return;
-  e.preventDefault();
-  render();
 });
 
 // Firefox focuses the popup window some time after the script runs, and a
@@ -129,4 +140,7 @@ Promise.all([browser.tabs.query({ hidden: false }), browser.windows.getCurrent()
   // Most recently used first, so an empty search lists the tabs you just left.
   tabs = all.sort((a, b) => b.lastAccessed - a.lastAccessed);
   render();
+}).catch(e => {
+  q.placeholder = `Tab Filter error: ${e.message}`;
+  console.error(e);
 });
